@@ -1,6 +1,7 @@
 package com.uncc.ticket.controller;
 
 import com.uncc.ticket.model.UsersEntity;
+import com.uncc.ticket.repository.TicketRepository;
 import org.springframework.validation.BindingResult;
 import com.uncc.ticket.model.TicketEntity;
 import com.uncc.ticket.service.TicketService;
@@ -50,15 +51,17 @@ public class TicketController {
         return "redirect:/";
     }
 
+
     @RequestMapping(value = "/tickets/edit/{id}", method = RequestMethod.GET)
     public String editTicket(Model model,@PathVariable("id") Long id) {
         // Code here
-        return "redirect:/"; //Remove this line
+        model.addAttribute("ticket", ticketService.findById(id));
+        return "tickets/storeTicket"; //Remove this line
     }
 
     @RequestMapping(value = "/tickets/delete/{id}", method = RequestMethod.GET)
     public String deleteTicket(@PathVariable("id") Long id) {
-        // Code here
+        ticketService.deleteById(id);
         return "redirect:/";
     }
 
